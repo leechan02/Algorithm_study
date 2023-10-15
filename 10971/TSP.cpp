@@ -8,6 +8,9 @@ int result = INT_MAX; // total result;
 void getPath(std::vector<int> &path, std::vector<bool> &visit, int &N, int sum,
              int from) {
   if (path.size() == N) {
+    if (W[from][path[0]] == 0) {
+      return ;
+    }
     sum += W[from][path[0]]; // sum last city to first city;
     if (sum < result) {
       result = sum; // change the shortest path;
@@ -23,6 +26,11 @@ void getPath(std::vector<int> &path, std::vector<bool> &visit, int &N, int sum,
       if (from == 0) {
         getPath(path, visit, N, sum, i); // first recursive;
       } else {
+        if (W[from][i] == 0) {
+          path.pop_back();  // reset the number of city;
+          visit[i] = false; // reset the visit flag;
+          continue;
+        }
         getPath(path, visit, N, sum + W[from][i], i);
       }
       path.pop_back();  // reset the number of city;
