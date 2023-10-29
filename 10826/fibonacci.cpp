@@ -1,6 +1,8 @@
 #include <iostream>
 
-std::string sum(std::string a, std::string b) {
+std::string cache[10000];
+
+std::string operator+(std::string a, std::string b) {
   std::string result;
   int sum;
   int up = 0;
@@ -33,19 +35,19 @@ std::string recursive(int n) {
   } else if (n == 1) {
     return "1";
   }
-  std::string arr[n + 1];
-
-  arr[0] = "0";
-  arr[1] = "1";
-  for (int i = 2; i <= n; i++) {
-    arr[i] = sum(arr[i - 1], arr[i - 2]);
+  if (cache[n] != "") {
+    return cache[n];
   }
-  return (arr[n]);
+
+  return (cache[n] = recursive(n - 1) + recursive(n - 2));
 }
 
 int main() {
   int n;
 
   std::cin >> n;
+  for (int i = 0; i < n; i++) {
+    cache[i] = "";
+  }
   std::cout << recursive(n) << std::endl;
 }
