@@ -1,31 +1,33 @@
 #include <iostream>
+#include <limits.h>
+
+long long arr[5000] = {
+    0,
+};
+
+long long recursive(int n) {
+  if (n == 0) {
+    return 0;
+  } else if (n < 0) {
+    return INT_MAX;
+  }
+  if (arr[n] != 0) {
+    return arr[n];
+  }
+  arr[n] = recursive(n - 3) + 1;
+  arr[n] = std::min(arr[n], recursive(n - 5) + 1);
+  return arr[n];
+}
 
 int main() {
   int N;
 
   std::cin >> N;
 
-  int sum = INT_MAX;
-  int i = 0;
-  int three = 0;
-  while (i <= N) {
-    int j = i;
-    int five = 0;
-    while (j <= N) {
-      if (j == N && three + five < sum) {
-        sum = three + five;
-      }
-      j += 5;
-      five++;
-    }
-    i += 3;
-    three++;
+  long long result = recursive(N);
+  if (result >= INT_MAX) {
+    result = -1;
   }
-  if (sum == INT_MAX) {
-    std::cout << "-1" << std::endl;
-    return (0);
-  }
-
-  std::cout << sum << std::endl;
+  std::cout << result;
   return (0);
 }
