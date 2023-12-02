@@ -1,4 +1,16 @@
 #include <iostream>
+#include <vector>
+
+int charToIndex(char ch) {
+  switch (ch)
+  {
+    case 'A': return 0;
+    case 'C': return 1;
+    case 'G': return 2;
+    case 'T': return 3;
+    default: return -1;
+  }
+}
 
 int main() {
   std::ios::sync_with_stdio(0);
@@ -11,28 +23,32 @@ int main() {
   std::string dna;
   std::cin >> dna;
 
-  int A, C, G, T;
-  std::cin >> A >> C >> G >> T;
+  std::vector<int> count(4), required(4);
+  for (int i = 0; i < 4; ++i) {
+    std::cin >> required[i];
+  }
 
-  int start = 0, end = P - 1, count = 0;
-  while (end < S) {
-    int a = 0, c = 0, g = 0, t = 0;
-    for (int i = start; i < start + P; ++i) {
-      if (dna[i] == 'A') {
-        a++;
-      } else if (dna[i] == 'C') {
-        c++;
-      } else if (dna[i] == 'G') {
-        g++;
-      } else if (dna[i] == 'T') {
-        t++;
+  for (int i = 0; i < P; ++i) {
+    count[charToIndex(dna[i])]++;
+  }
+
+  int start = 0, valid = 0;
+  while (start + P <= S) {
+    bool isValid = true;
+    for (int i = 0; i < 4; ++i) {
+      if (count[i] < required[i]) {
+        isValid = false;
+        break;
       }
     }
-    if (a >= A && c >= C && g >= G && t >= T) {
-      count++;
+    valid += isValid;
+
+    if (start + P < S) {
+      count[charToIndex(dna[start])]--;
+      count[charToIndex(dna[start + P])]++;
     }
-    start++, end++;
+    start++;
   }
-  std::cout << count << '\n';
+  std::cout << valid << '\n';
   return (0);
 }
