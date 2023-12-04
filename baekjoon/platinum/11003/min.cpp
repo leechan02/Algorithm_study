@@ -8,7 +8,9 @@ int main() {
 
   int N, L;
   std::cin >> N >> L;
-  std::deque<std::pair<int, int> >  deque;
+
+  typedef std::pair<int, int> Node;
+  std::deque<Node>  deque;
 
   for (int i = 0; i < N; ++i) {
     int now;
