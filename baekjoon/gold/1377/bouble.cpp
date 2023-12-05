@@ -1,5 +1,6 @@
 #include <iostream>
-#include <map>
+#include <vector>
+#include <algorithm>
 
 int main() {
   std::ios::sync_with_stdio(0);
@@ -8,20 +9,20 @@ int main() {
 
   int N;
   std::cin >> N;
+  std::vector<std::pair<int, int>> A(N);
 
-  std::multimap<int, int> A;
   for (int i = 0; i < N; ++i) {
-    int tmp;
-    std::cin >> tmp;
-    A.insert(std::make_pair(tmp, i));
+	std::cin >> A[i].first;
+	A[i].second = i;
   }
 
+  std::sort(A.begin(), A.end());
   int max = 0;
-  std::multimap<int, int>::iterator it = A.begin();
-  for (int i = 0; it != A.end(); ++it, ++i) {
-    if (max < it->second - i) {
-      max = it->second - i;
-    }
+
+  for (int i = 0; i < N; ++i) {
+	if (max < A[i].second - i) {
+		max = A[i].second - i;
+	}
   }
   std::cout << max  + 1 << '\n';
   return (0);
