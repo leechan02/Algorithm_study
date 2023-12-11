@@ -22,7 +22,6 @@ int main() {
     stack.push(i);
   }
   while (!stack.empty()) {
-    std::cout << "top: " << stack.top() << std::endl;
     ans[stack.top()] = -1;
     stack.pop();
   }
