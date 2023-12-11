@@ -18,7 +18,6 @@ int main() {
   }
 
   std::stack<int> stack;
-  bool final = true;
 
   for (int i = 0; i < A.size(); ++i) {
     int a = A[i];
@@ -35,17 +34,14 @@ int main() {
 
       if (a < b) {
         std::cout << "NO\n";
-        final = false;
-        break;
+        return (0);
       } else {
         result.push_back('-');
       }
     }
   }
-  if (final) {
-    for (int i = 0; i < result.size(); ++i) {
-      std::cout << result[i] << '\n';
-    }
+  for (int i = 0; i < result.size(); ++i) {
+    std::cout << result[i] << '\n';
   }
   return 0;
 }
