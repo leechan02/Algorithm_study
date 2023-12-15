@@ -8,7 +8,7 @@ std::vector<int> distance;
 
 void BFS(int from) {
   std::queue<int> queue;
-  bool visited[100001] = {0, };
+  bool visited[100001] = {false};
 
   queue.push(from);
   visited[from] = true;
