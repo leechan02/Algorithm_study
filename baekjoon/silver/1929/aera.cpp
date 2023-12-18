@@ -5,16 +5,17 @@ int main() {
   int M, N;
   std::cin >> M >> N;
 
-  std::vector<int> arr(N + 1, 0);
-  for (int i = 0; i <= N; ++i) {
-    arr[i] = i;
+  std::vector<int> arr;
+  for (int i = 2; i <= N; ++i) {
+    arr.push_back(i);
   }
 
   for (int i = 0; i < arr.size(); ++i) {
-    for (int j = i + 1; j < arr.size(); ++j) {
-      if (arr[j] && arr[i] && arr[j] % arr[i] == 0) {
-        arr.erase(arr.begin() + j);
-      }
+    if (arr[i] == 0) {
+      continue;
+    }
+    for (int j = i + arr[i]; j < arr.size(); j += arr[i]) {
+      arr[j] = 0;
     }
   }
   for (auto i : arr) {
