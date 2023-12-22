@@ -1,7 +1,7 @@
 CPP_FILES = $(wildcard *.cpp)
 NAME = $(basename $(CPP_FILES))
 
-CXXFLAGS = -MMD -std=c++11
+CXXFLAGS = -MMD -std=c++17
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 DEF = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.d))
