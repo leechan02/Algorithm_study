@@ -1,15 +1,15 @@
 #include <iostream>
-#include <set>
+#include <map>
 
 int main() {
   int n, s;
   std::cin >> n >> s;
 
-  std::set<std::string> dic;
+  std::map<std::string, int> dic;
   for (int i = 0; i < n; ++i) {
     std::string tmp;
     std::cin >> tmp;
-    dic.insert(tmp);
+    dic[tmp] = 1;
   }
 
   int result = 0;
@@ -17,7 +17,7 @@ int main() {
     std::string tmp;
     std::cin >> tmp;
 
-    if (dic.find(tmp) != dic.end()) {
+    if (dic[tmp] == 1) {
       ++result;
     }
   }
