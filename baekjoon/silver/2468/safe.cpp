@@ -4,8 +4,8 @@
 
 int dx[4] = {0, 0, -1, 1};
 int dy[4] = {1, -1, 0, 0};
-int map[100][100];
-bool visited[100][100];
+int map[101][101];
+bool visited[101][101];
 
 void DFS(int y, int x) {
   visited[y][x] = true;
@@ -14,7 +14,8 @@ void DFS(int y, int x) {
     int newX = x + dx[i];
     int newY = y + dy[i];
 
-    if (newX >= 0 && newY >= 0 && visited[y][x] == false && map[y][x] != 0) {
+    if (newX >= 0 && newY >= 0 && visited[newY][newX] == false &&
+        map[newY][newX] != 0) {
       DFS(newY, newX);
     }
   }
