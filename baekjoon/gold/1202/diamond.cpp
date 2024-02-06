@@ -18,11 +18,12 @@ int main() {
   std::sort(vv.begin(), vv.end());
   std::priority_queue<long long> pq;
 
-  int i = 0, ans = 0;
-  for (int j = 0; j < k; ++j) {
-    while (i < n && v[i].first <= vv[i]) {
-      pq.push(v[i].second);
-      ++i;
+  int dia = 0;
+  long long ans = 0;
+  for (int bag = 0; bag < k; ++bag) {
+    while (dia < n && v[dia].first <= vv[bag]) {
+      pq.push(v[dia].second);
+      ++dia;
     }
     if (pq.size()) {
       ans += pq.top();
