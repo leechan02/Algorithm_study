@@ -17,10 +17,8 @@ bool go(int time, char turn) {
     if (ny < 0 || ny >= n || nx < 0 || nx >= n || map[ny][nx] == 2)
       return 1;
     y = ny; x = nx;
-    if (map[ny][nx] == 1) {
-      body.push({y, x});
-    } else {
-      body.push({y, x});
+    body.push({y, x});
+    if (map[ny][nx] != 1) {
       map[body.front().first][body.front().second] = 0;
       body.pop();
     }
@@ -29,10 +27,7 @@ bool go(int time, char turn) {
   if (turn == 'D') {
     direc = (direc + 1) % 4;
   } else {
-    direc = (direc - 1) % 4;
-    if (direc < 0) {
-      direc = 3;
-    }
+    direc = ((direc - 1) < 0 ? 3 : direc - 1);
   }
   return 0;
 }
