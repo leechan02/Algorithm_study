@@ -4,7 +4,7 @@
 int n, m, y, x, ny, nx, k;
 int map[21][21];
 int order[1001];
-int dy[5] = {0, 0, 0, 1, -1};
+int dy[5] = {0, 0, 0, -1, 1};
 int dx[5] = {0, 1, -1, 0, 0};
 std::vector<int> dice(6);
 
@@ -35,9 +35,9 @@ void move(int d) {
 }
 
 int main() {
-  std::cin >> n >> m >> x >> y >> k;
+  std::cin >> n >> m >> y >> x >> k;
   for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
+    for (int j = 0; j < m; ++j) {
       std::cin >> map[i][j];
     }
   }
