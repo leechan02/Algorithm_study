@@ -1,65 +1,58 @@
-#include <iostream>
-#include <vector>
-#include <queue>
 #include <algorithm>
-#include <cmath>
 #include <cstring>
-#include <deque>
+#include <iostream>
+#include <queue>
+#include <vector>
 
-int n, sy, sx, y, x, ny, nx, cnt, eat, ss = 2;
-int map[21][21];
-int tmp[21][21];
+int n, sy, sx, cnt, eat, ss = 2;
+int map[25][25];
+int tmp[25][25];
 int dy[4] = {-1, 1, 0, 0};
 int dx[4] = {0, 0, -1, 1};
-bool visited[21][21];
-struct fish{
-  int s, y, x;
-};
-std::deque<fish> fishes;
+bool visited[25][25];
+struct fish {
+  int d, y, x;
 
-bool com(fish &a, fish &b) {
-  int al = abs(sy - a.y) + abs(sx - a.x);
-  int bl = abs(sy - b.y) + abs(sx - b.x);
-  if (a.s > b.s) return false;
-  else if (a.s == b.s && al > bl) return false;
-  else if (a.s == b.s && al == bl && a.y > b.y) return false;
-  else if (a.s == b.s && al == bl && a.y == b.y && a.x > b.x) return false;
-  return true;
-}
-
-void print() {
-  std::cout << "\n";
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      std::cout << tmp[i][j] << " ";
-    }
-    std::cout << "\n";
+  bool operator<(const fish &other) const {
+    if (d != other.d) return d < other.d;
+    if (y != other.y) return y < other.y;
+    return x < other.x;
   }
-}
+};
+std::vector<fish> fishes;
 
-int go(int ty, int tx) {
-  memset(tmp, 0, sizeof(tmp));
+void nextList(int y, int x) {
   memset(visited, 0, sizeof(visited));
+  memset(tmp, 0, sizeof(tmp));
   std::queue<std::pair<int, int>> q;
-  map[sy][sx] = 0;
-  q.push({sy, sx});
-  visited[sy][sx] = true;
+  tmp[y][x] = 0;
+  q.push({y, x});
+  visited[y][x] = true;
+
   while (!q.empty()) {
-    y = q.front().first;
-    x = q.front().second;
+    y = q.front().first, x = q.front().second;
     q.pop();
 
     for (int i = 0; i < 4; ++i) {
-      ny = y + dy[i];
-      nx = x + dx[i];
-      if (ny < 0 || ny >= n || nx < 0 || nx >= n || visited[ny][nx] == true || map[ny][nx] > ss) continue;
+      int ny = y + dy[i];
+      int nx = x + dx[i];
+      if (ny < 0 || ny >= n || nx < 0 || nx >= n) continue;
+      if (visited[ny][nx] == true || map[ny][nx] > ss) continue;
       tmp[ny][nx] = tmp[y][x] + 1;
-      visited[ny][nx] = true;
       q.push({ny, nx});
+      visited[ny][nx] = true;
     }
   }
-  // print();
-  return tmp[ty][tx];
+
+  fishes.clear();
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      if (tmp[i][j] != 0 && map[i][j] != 0 && map[i][j] < ss) {
+        fishes.push_back({tmp[i][j], i, j});
+      }
+    }
+  }
+  std::sort(fishes.begin(), fishes.end());
 }
 
 int main() {
@@ -67,23 +60,20 @@ int main() {
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
       std::cin >> map[i][j];
-      if (map[i][j] == 9) sy = i, sx = j;
-      else if (map[i][j] != 0) fishes.push_back({map[i][j], i, j});
+      if (map[i][j] == 9) {
+        sy = i, sx = j;
+        map[i][j] = 0;
+      }
     }
   }
-  // for (auto t : fishes) {
-  //   std::cout << t.s << " " << t.y << " " << t.x << "\n";
-  // }
-  while (!fishes.empty()) {
-    std::sort(fishes.begin(), fishes.end(), com);
-    int ts = fishes.front().s, ty = fishes.front().y, tx = fishes.front().x;
-    // std::cout << "t: " << ts << " " << ty << " " << tx << "\n";
-    if (ts >= ss || go(ty, tx) == 0) break;
-    cnt += tmp[ty][tx];
+  while (true) {
+    nextList(sy, sx);
+    if (fishes.empty()) break;
+    sy = fishes[0].y, sx = fishes[0].x;
+    cnt += fishes[0].d;
+    map[sy][sx] = 0;
     ++eat;
     if (eat == ss) ++ss, eat = 0;
-    sy = ty, sx = tx;
-    fishes.pop_front();
   }
   std::cout << cnt << "\n";
 }
