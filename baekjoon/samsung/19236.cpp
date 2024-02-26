@@ -15,23 +15,39 @@ std::vector<fish> fishes;
 int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 int dx[8] = {0, -1, -1, -1, 0, 1, 1, 1};
 
+void print() {
+  std::cout << "\n";
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++j) {
+      std::cout << map[i][j] << " ";
+    }
+    std::cout << "\n";
+  }
+}
+
 void moveFishes() {
-  int y, x, ny, nx, ty, tx, td, i;
+  int y, x, ny, nx, ty, tx, i;
   for (auto f : fishes) {
     y = f.y;
     x = f.x;
 
-    for (i = f.dir; i != (f.dir + 7) % 8; i = (i + 1) % 8) {
+    std::cout << "\n" << "before: " << f.idx;
+    i = f.dir;
+    do {
       ny = y + dy[i];
       nx = x + dx[i];
-      if (ny < 0 || ny >= 4 || nx < 0 || nx >= 4 || map[ny][nx] == -1) continue;
+      if (ny < 0 || ny >= 4 || nx < 0 || nx >= 4 || map[ny][nx] == -1) {
+        i = (i + 1) % 8;
+        continue;
+      }
       break;
-    }
+    } while (i != f.dir);
     if (ny < 0 || ny >= 4 || nx < 0 || nx >= 4 || map[ny][nx] == -1) continue;
-    ty = fishes[map[ny][nx] - 2].y;
-    tx = fishes[map[ny][nx] - 2].x;
-    td = fishes[map[ny][nx] - 2].dir;
+    fishes[map[ny][nx] - 2].y = y, fishes[map[ny][nx] - 2].x = x;
+    fishes[map[y][x] - 2].y = ny, fishes[map[y][x] - 2].x = nx, fishes[map[y][x] - 2].dir = i;
+    std::cout << "\n" << "b: " << y << " " << x << " n: " << ny << " " << nx << " idx: " << map[y][x];
     std::swap(map[y][x], map[ny][nx]);
+    print();
   }
 }
 
