@@ -31,7 +31,10 @@ void checkFox() {
 
 int main() {
   std::cin >> t;
+  std::cin.ignore();
   while (t--) {
+    animals.clear();
+    ans.clear();
     std::getline(std::cin, sound);
     std::string animal;
     while (getline(std::cin, animal)) {
@@ -39,10 +42,6 @@ int main() {
       std::vector<std::string> tmp = split(animal, " ");
       animals.push_back(tmp[tmp.size() - 1]);
     }
-    for (auto t : animals) {
-      std::cout << t << " ";
-    }
-    std::cout << "\n";
     checkFox();
     std::cout << ans << "\n";
   }
