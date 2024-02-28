@@ -17,12 +17,11 @@ int main() {
     num[i] = alphabet[s[i] - 'A'];
   }
 
-  for (int i = 1; i < s.size() / 2; ++i) {
-    for (int j = 0; j < s.size() - i; j += i) {
-      num[j] = (num[j] + num[j + i]) % 10;
+  for (int i = 1; i < s.size() - 1; ++i) {
+    for (int j = 0; j < s.size() - i; ++j) {
+      num[j] = (num[j] + num[j + 1]) % 10;
     }
-    std::cout << "\n";
   }
-  ans = std::to_string(num[0]) + std::to_string(num[2]);
+  ans = std::to_string(num[0]) + std::to_string(num[1]);
   std::cout << ans << "\n";
 }
