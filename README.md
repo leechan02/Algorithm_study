@@ -21,3 +21,4 @@
  
 ### 🍁 문제 은행 사이트
 [baekjoon](https://www.acmicpc.net/)
+[![Solved.ac 프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj=euiclee)](https://solved.ac/euiclee)
