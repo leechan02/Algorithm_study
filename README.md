@@ -20,5 +20,5 @@
   - code runner 익스텐션 설치 및 단축기 설정 해놨을 시 바보 같이 makefile 만들 필요 없음.
  
 ### 🍁 문제 은행 사이트
-[baekjoon](https://www.acmicpc.net/)
-[![Solved.ac 프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj=euiclee)](https://solved.ac/euiclee)
+[baekjoon](https://www.acmicpc.net/) <br>
+[![Solved.ac프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj={euiclee})](https://solved.ac/{euiclee})
